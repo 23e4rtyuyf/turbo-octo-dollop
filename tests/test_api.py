@@ -178,8 +178,8 @@ class TestAuthEndpoints:
             assert k["key_preview"].endswith("...")
 
     def test_revoke_api_key(self, client):
-        create_resp = client.post("/api/v1/auth/api-key?name=to-revoke&org_id=testorg")
-        # Generate a key and check it
+        client.post("/api/v1/auth/api-key?name=to-revoke&org_id=testorg")
+        # Retrieve the generated key ID
         response = client.get("/api/v1/auth/api-keys?org_id=testorg")
         key_id = response.json()[0]["id"]
 

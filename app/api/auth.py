@@ -13,7 +13,7 @@ async def verify_api_key(api_key: str = Security(api_key_header), db: Session = 
     if not api_key:
         raise HTTPException(status_code=401, detail="Missing API key. Include X-API-Key header.")
 
-    key_record = db.query(APIKey).filter(APIKey.key == api_key, APIKey.is_active == True).first()
+    key_record = db.query(APIKey).filter(APIKey.key == api_key, APIKey.is_active).first()
     if not key_record:
         raise HTTPException(status_code=403, detail="Invalid or revoked API key.")
 

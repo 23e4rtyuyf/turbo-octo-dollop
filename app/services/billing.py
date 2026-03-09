@@ -1,7 +1,7 @@
 import stripe
 from app.config import settings
 
-stripe.api_key = getattr(settings, 'stripe_secret_key', '')
+stripe.api_key = settings.stripe_secret_key
 
 PRICING_PLANS = {
     "free": {
@@ -49,7 +49,7 @@ async def create_checkout_session(plan: str, org_id: str, success_url: str, canc
 
 async def handle_webhook(payload: bytes, sig_header: str) -> dict:
     """Handle Stripe webhook events."""
-    endpoint_secret = getattr(settings, 'stripe_webhook_secret', '')
+    endpoint_secret = settings.stripe_webhook_secret
     event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
 
     if event["type"] == "checkout.session.completed":
