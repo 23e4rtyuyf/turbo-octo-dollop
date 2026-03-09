@@ -1,0 +1,17 @@
+run = "uvicorn app.main:app --host 0.0.0.0 --port 8000"
+language = "python3"
+entrypoint = "app/main.py"
+
+[nix]
+channel = "stable-24_05"
+
+[env]
+PYTHONPATH = "${REPL_HOME}"
+
+[deployment]
+run = ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+deploymentTarget = "cloudrun"
+
+[[ports]]
+localPort = 8000
+externalPort = 80
